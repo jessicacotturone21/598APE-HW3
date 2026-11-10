@@ -19,7 +19,7 @@ static void die(const char *s) {
 }
 
 int N = 801;
-int **grid;
+int16_t **grid;
 
 // you can also use this function to debug print your sandpile
 static void render(char *filename) {
@@ -142,9 +142,9 @@ int main(int argc, char **argv) {
     die("grid size must be a positive int");
   N = (int)parsed;
 
-  grid = (int **)malloc(N * sizeof(int *));
+  grid = (int16_t **)malloc(N * sizeof(int16_t *));
   for (int i = 0; i < N; ++i) {
-    grid[i] = (int *)malloc(N * sizeof(int));
+    grid[i] = (int16_t *)malloc(N * sizeof(int16_t));
   }
 
   find_identity();
