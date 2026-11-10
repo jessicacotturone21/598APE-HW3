@@ -114,6 +114,11 @@ void find_identity() {
 }
 
 int main(int argc, char **argv) {
+  struct timeval start, stop;
+  double elapsed_time;
+
+  gettimeofday(&start, NULL);
+
   if (argc < 2 || argc > 2) {
     fprintf(stderr, "Usage: %s N\n", argv[0]);
     return EXIT_FAILURE;
@@ -137,5 +142,9 @@ int main(int argc, char **argv) {
     free(grid[i]);
   }
   free(grid);
+
+  gettimeofday(&stop, NULL);
+  elapsed_time = (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0;
+  printf("Execution time: %.6f seconds\n", elapsed_time);
   return EXIT_SUCCESS;
 }
