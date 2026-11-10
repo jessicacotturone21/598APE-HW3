@@ -76,22 +76,24 @@ static int update_elements(int i_index) {
   int changed = 0;
   #pragma omp parallel for
   for (int i = i_index; i < N; i += 3) {
+    int16_t* prev_row = grid[i-1];
+    int16_t* row = grid[i];
+    int16_t* next_row = grid[i+1];
     int max = MAX(i, N - 1 - i);
     for (int j = 0; j <= max; ++j) {
+      if (row[j] < 4) continue;
       if ((i - N / 2) * (i - N / 2) + (j - N / 2) * (j - N / 2) <=
             (N / 2) * (N / 2)) {
-        if (grid[i][j] < 4)
-          continue;
         changed = 1; // topple it
-        grid[i][j] -= 4;
+        row[j] -= 4;
         if (i > 0)
-          grid[i - 1][j]++;
+          prev_row[j]++;
         if (j > 0)
-          grid[i][j - 1]++;
+          row[j - 1]++;
         if (i < N - 1)
-          grid[i + 1][j]++;
+          next_row[j]++;
         if (j < N - 1)
-          grid[i][j + 1]++;
+          row[j + 1]++;
       }
     }
   }
