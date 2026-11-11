@@ -37,8 +37,13 @@ Consider speeding up the generation of this 1001x1001 identity sandpile.
 ```
 
 ## Optimizations
+
 Opt 1: Parallelization, commit `4f2daec`
+
 Opt 2: Narrowing the data type, commit `e212627`
+
 Opt 3: Hoisting a loop-invariant load, commits `09ece5c` and `0e52b85`
+
 Opt 4: Branch removal, commit `2da6f67`
+
 Opt 5: Toppling more than once, commit `48f5407`
