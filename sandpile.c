@@ -85,14 +85,10 @@ static int update_elements(int i_index) {
             (N / 2) * (N / 2)) {
         c = 1; // topple it
         row[j] -= 4;
-        if (i > 0)
-          grid[i-1][j]++;
-        if (j > 0)
-          row[j - 1]++;
-        if (i < N - 1)
-          grid[i+1][j]++;
-        if (j < N - 1)
-          row[j + 1]++;
+        grid[i-1][j]++;
+        row[j-1]++;
+        grid[i+1][j]++;
+        row[j+1]++;
       }
     }
     if (c == 1) changed = 1;
@@ -144,18 +140,18 @@ int main(int argc, char **argv) {
     die("grid size must be a positive int");
   N = (int)parsed;
 
-  grid = (int16_t **)malloc(N * sizeof(int16_t *));
-  for (int i = 0; i < N; ++i) {
-    grid[i] = (int16_t *)malloc(N * sizeof(int16_t));
+  int16_t** base = (int16_t **)malloc((N + 2) * sizeof(int16_t *));
+  for (int i = 0; i < N + 2; ++i) {
+    base[i] = (int16_t *)calloc(N + 2, sizeof(int16_t)) + 1;
   }
+  grid = base + 1;
 
   find_identity();
 
   render("identity.png");
-  for (int i = 0; i < N; ++i) {
-    free(grid[i]);
-  }
-  free(grid);
+
+  for (int i = -1; i <= N; ++i) free(grid[i] - 1);
+  free(grid - 1);
 
   gettimeofday(&stop, NULL);
   elapsed_time = (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0;
