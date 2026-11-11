@@ -1,8 +1,6 @@
 # CS598APE HW3
 
-This repository contains code for homework 3 of CS598APE. It is relatively
-simple in comparison to HW1 and HW2 to ensure you have enough time to work on
-the course project. 
+This repository contains code for homework 3 of CS598APE. It should not need any modifications to run.
 
 `sandpile.c` contains the implementation of finding the identity element of a 2D
 abelian sandpile.
@@ -32,14 +30,15 @@ Usage (after compiling):
 
 where `N` is the grid size
 
-Consider speeding up the generation of this 1001x1001 identity sandpile (which
-takes approximately ~3m 40s on my local laptop under the default setup)
+Consider speeding up the generation of this 1001x1001 identity sandpile.
 
 ```bash
 ./sandpile.exe 1001
 ```
 
-For an optional, ungraded challenge, see how large a sandpile you can compute
-on the course VMs and report the grid size and runtime. There is no prescribed
-upper limit on `N` for this challenge.
-
+## Optimizations
+Opt 1: Parallelization, commit `4f2daec`
+Opt 2: Narrowing the data type, commit `e212627`
+Opt 3: Hoisting a loop-invariant load, commits `09ece5c` and `0e52b85`
+Opt 4: Branch removal, commit `2da6f67`
+Opt 5: Toppling more than once, commit `48f5407`
