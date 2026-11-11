@@ -84,11 +84,12 @@ static int update_elements(int i_index) {
       if ((i - N / 2) * (i - N / 2) + (j - N / 2) * (j - N / 2) <=
             (N / 2) * (N / 2)) {
         c = 1; // topple it
-        row[j] -= 4;
-        grid[i-1][j]++;
-        row[j-1]++;
-        grid[i+1][j]++;
-        row[j+1]++;
+        int topple = row[j] >> 2; // divide by 4
+        row[j] -= 4 * topple;
+        grid[i-1][j] += topple;
+        row[j-1] += topple;
+        grid[i+1][j] += topple;
+        row[j+1] += topple;
       }
     }
     if (c == 1) changed = 1;
